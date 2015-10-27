@@ -1,17 +1,17 @@
-cmake_minimum_required(VERSION 2.4.3 FATAL_ERROR )
+cmake_minimum_required(VERSION 2.8.8 FATAL_ERROR )
 
 project(CuteCom)
 
-set(QT_MIN_VERSION 4.1.0)
-find_package(Qt4 REQUIRED)
+# set(QT_MIN_VERSION 4.1.0)
+find_package(Qt5Widgets REQUIRED)
 
 include_directories(${QT_INCLUDES} ${CMAKE_BINARY_DIR})
-add_definitions(-DQT3_SUPPORT)
+# add_definitions(-DQT3_SUPPORT)
 set(cutecomSrcs main.cpp qcppdialogimpl.cpp)
 
-qt4_wrap_cpp(cutecomSrcs qcppdialogimpl.h)
+qt5_wrap_cpp(cutecomSrcs qcppdialogimpl.h)
 
-qt4_wrap_ui(cutecomSrcs cutecommdlg.ui)
+qt5_wrap_ui(cutecomSrcs cutecommdlg.ui)
 
 set(exeType)
 set(binInstallDir bin )
@@ -28,7 +28,8 @@ if(APPLE)
 endif(APPLE)
 
 add_executable(cutecom ${exeType} ${cutecomSrcs} ${uiHeaders})
-target_link_libraries(cutecom ${QT_QT3SUPPORT_LIBRARY} ${QT_QTGUI_LIBRARY} ${QT_QTCORE_LIBRARY})
+#target_link_libraries(cutecom ${QT_QT3SUPPORT_LIBRARY} ${QT_QTGUI_LIBRARY} ${QT_QTCORE_LIBRARY})
+qt5_use_modules(cutecom Core Gui Widgets)
 
 if (APPLE)
    set_target_properties(cutecom PROPERTIES OUTPUT_NAME CuteCom)
